@@ -1,12 +1,14 @@
 <?php
 include ('route.php');
+include ('DB.php');
 
+
+OpenCon();
 $routerObj=new route();
 
-$routerObj->Add('shop');
+$routerObj->Add('/store');
+$routerObj->Add('/pay');
+$routerObj->redirect();
 
-$routerObj->Add('submit');
-
-$routerObj->redirect($_GET['uri']);
 
 
