@@ -22,70 +22,69 @@
     var prices={'apple':0,'beer':0,'water':0,'cheeses':0};
     //save the current balance to use in script.js 
     currentBalance=<?php echo $_SESSION['balance'];?> ;
-
   </script>
-
-    
-    
   <nav class="navbar navbar-dark bg-dark">
     <!-- Navbar content -->
     <i class="fa fa-shopping-cart toggle_cart"></i> 
   </nav>
   <div class="container">
+    <h4> These are the available products right now. Click on add to cart, select the amount and the payment methon then submit your order!</h4>
     <div class="row">
-
       <?php 
       // the key is the product name and the value is the prodyct price
         foreach($productsData as $key=>$value){
           echo'<div class="col-sm product_box">
           <h3 class="product_header">'.$key .'</h3> 
-          
-        <img class="product_img" src="Images/'. $key.'.png ">
-        <h5 class="price_tag"> Price/unit: '.$value. '$</h5>
-        <button data-which_product="'.$key.'" class=" button add_to_cart"> Add to cart <i  class="fa fa-shopping-cart"></i></button>
-        <script>prices["'.$key.'"]= '.$value.'</script>
-        </div>';
+          <img class="product_img" src="Images/'. $key.'.png ">
+          <h5 class="price_tag"> Price/unit: '.$value. '$</h5>
+          <button data-which_product="'.$key.'" class=" button add_to_cart"> Add to cart <i  class="fa fa-shopping-cart"></i></button>
+          <script>prices["'.$key.'"]= '.$value.'</script>
+          </div>';
         }
-
       ?>
-      
-      
     </div>
   </div>
   <div class="cart">
-    
-      <h1 style="color:rgb(243, 164, 73);">Your Cart </h1> <i  class="fa fa-times close_cart"></i>
+    <h1 style="color:rgb(243, 164, 73);">Your Cart </h1> <i  class="fa fa-times close_cart"></i>
+    <hr>
+    <div>
+      <table id="products_in_cart" class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Unit Price</th>
+            <th scope="col">Amount</th>
+            <th scope="col">SubTotal</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>   
+    <h4 id="current_balance"> Current balance:<?php echo $_SESSION['balance'];?></h4>
+    <h4 id ="total_payment"> </h4>
+    <h4 id="remaining_balance"></h4>   
+    <input type="radio" name="payment_method" value="0"> Pick up(0$)
+    <input type="radio" name="payment_method" value="5"> UPS(5$)     
+    <button type="submit" class="button pay_button">Pay</button>
+  </div>
+  <div class="container">
+      <h3>This is a simple User interface to try the following dunctionalities:</h3>
       <hr>
-      <div>
-        <table id="products_in_cart" class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Product Name</th>
-              <th scope="col">Unit Price</th>
-              <th scope="col">Amount</th>
-              <th scope="col">SubTotal</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
-      </div>
-      
-      <h4 id="current_balance"> Current balance:<?php echo $_SESSION['balance'];?></h4>
-      <h4 id ="total_payment"> </h4>
-      <h4 id="remaining_balance"></h4>
-      
-      <input type="radio" name="payment_method" value="0"> Pick up(FREE)
-      <input type="radio" name="payment_method" value="5"> UPS(5$)
-        
-      <button type="submit" class="button pay_button">Pay</button>
-      
-    
+      <h5>- Add the above products to the cart.</h5>
+      <h5>- View the cart and select the required amounts of each product.</h5>
+      <h5>- View the subtotal, the total price, the current balance and the remaining balance after the transaction.</h5>
+      <h5>- Submit the payment after selecting the payment method.</h5>
+      <h3> Notes:</h3>
+      <hr>
+      <h5>- The balance is session based so whenever you clear the browser cache it resets to 100$ </h5>
+      <h5>- This system is designed with OOP with a herirarchy inheritance tree so the items Prices are not stored in the database. </h5>
+      <h5>- This GUI is meant to be very simple but user-friendly. Sophistication won't help with such a simple system with that low number of features.</h5>
+
+
   </div>
 
-
-
-</div>
 
 </body>

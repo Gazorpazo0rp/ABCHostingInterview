@@ -34,6 +34,9 @@ nav{
 .container{
     max-width:1300px;
     margin-top:40px;
+    background-color: rgb(193, 193, 194);
+    padding:40px;
+    margin-bottom:20px;
 }
 .product_img{
     position:absolute;
@@ -94,6 +97,7 @@ nav{
     text-align: center;
     background-color: rgb(216, 221, 216);
     padding-bottom:80px;
+    display:none;
 }
 .close_cart{
     position: absolute;
@@ -121,4 +125,7 @@ input{
 }
 .pay_button:hover{
     color:rgb(216, 221, 216);
+}
+.fa{
+    cursor:pointer;
 }

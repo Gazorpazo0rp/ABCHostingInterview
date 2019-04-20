@@ -3,7 +3,8 @@ $(document).ready(function(){
         'apple':0,
         'beer':0,
         'water':0,
-        'cheese':0
+        'cheese':0,
+        'paymentMethod':0
     }
     var items=['apple','beer','water','cheese'];
 
@@ -30,7 +31,7 @@ $(document).ready(function(){
     cnt=1; //counts the number of items in the cart for the table # column
     function addToCart(toUpdate){
         if(cart[toUpdate]==0){
-            $('#products_in_cart tbody').append('<tr><th scope="row">'+ cnt+'</th><td>'+ toUpdate+'</td><td>'+ cart[toUpdate]+'</td><td><input type="text" name="'+toUpdate +'" value="1"></td><td id="price'+ toUpdate+'">'+prices[toUpdate] +'</td></tr>');
+            $('#products_in_cart tbody').append('<tr><th scope="row">'+ cnt+'</th><td>'+ toUpdate+'</td><td>'+ cart[toUpdate]+'</td><td><input type="text" name="'+toUpdate +'" value="1"></td><td id="price'+ toUpdate+'">'+prices[toUpdate] +'</td><td><i class="removeItemFromCart fa fa-times" id="remove'+toUpdate+'"></i></td></tr>');
             cart[clickedType] +=1;
             cnt++;
             updatePayment();
@@ -40,9 +41,21 @@ $(document).ready(function(){
             alert('This item is already in your cart. Please modify the amount if you need to buy more.')
         }
     }
+    function removeItem(){
+        console.log(1);
+    }
     function clearCart(){
         $('#products_in_cart tbody').html("");
     }
+        //this function removes an item from the cart by id 
+
+    $('.cart').on("click",'.removeItemFromCart', function(){
+        id= $(this).attr('id');
+        id=id.slice(6);
+        $(this).parent().parent().fadeOut('slow');
+        cart[id]=0;
+    });
+
     function updateCart(toUpdate){
         for(i=0;i<items.length;i++){
             if(cart[items[i]]!=0){
@@ -63,7 +76,7 @@ $(document).ready(function(){
     });
 
     //initially hide the cart on load
-    $(".cart").css('display','none');
+    //$(".cart").css('display','none');
     //$(".cart").fadeOut(0);
     $(".toggle_cart").click(function(){
         if($(".cart").css('display')=="block" ){
@@ -110,6 +123,7 @@ $(document).ready(function(){
     }
     $(':input[type="submit"]').click(function(){
         payment_method= $('input[name="payment_method"]:checked').val();
+        cart['payment_method']=payment_method;
         if(currentBalance- getTotalPayment()>=0 ){
             if(payment_method != undefined){
                 pay(getTotalPayment());
