@@ -8,35 +8,47 @@ class route{
         session_start();
         if(!isset($_SESSION['balance'])){
             $_SESSION['balance']=100;
-
+        }
+        if(!isset($_SESSION['rated'])){
+            $rated=array();
+            $_SESSION['rated']=$rated;
         }
 
-        //OpenCon();
     }
     public function Add($r){
-
         array_push($this->routes , $r);
     }
     public function redirect(){
-
-        $uri=isset($_GET['uri']) ? '/'. $_GET['uri'] : '/';
-        //echo $uri;
+        $successfulRoute=0;
+        $uri=isset($_GET['uri']) ? '/'. $_GET['uri'] : '/store';
+        
         foreach($this->routes as $key => $value){
-            if( preg_match("#^$value#",$uri) ){
-                //echo "match".$value;
+            if( $value==$uri ||$value.'/'==$uri) {
+                //succcessful route
+                $successfulRoute=1;
+                //echo $uri;
                 if($value == "/store"){
-                    //echo"haaaa";
+                    
                     $productsData= $this->controller->init();
+                    $ratings=$this->controller->getRatings();
                     include 'storePage.php';
                 }
                 if($value=="/pay"){
                     $this->controller->pay();
-                    return $_SESSION['balance'];
+                    $response=array("balance"=> $_SESSION['balance']);
+                    return $response;
                 }
-                
-              
+                if($value=="/rate"){
+                    $rates= $this->controller->rate();
+                    return 1;
+                }
+                if($value=="/test"){
+                    echo "tested";
+                }
             }
-            
+        }
+        if(!$successfulRoute){
+            echo"Wrong route. The store is available at / or /store ";
         }
     }
 }

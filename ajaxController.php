@@ -1,6 +1,9 @@
 <?php
 require('item.php');
+include ('DB.php');
 class ajaxController{
+   
+    private $conn ;
     private $appleObj;
     private $beerObj;
     private $waterObj;
@@ -10,6 +13,8 @@ class ajaxController{
         $this->beerObj= new beer();
         $this-> waterObj= new water();
         $this-> cheeseObj= new cheese();
+        $db=new DB();
+        $this->conn=$db->getConn();
     }
     public function getPrice(){
         $appleObj= new apple(5);
@@ -29,6 +34,16 @@ class ajaxController{
     public function init(){
         $productsData=array($this->appleObj->getName() => $this->appleObj->getPrice(),$this->beerObj->getName() => $this->beerObj->getPrice(),$this->waterObj->getName() => $this->waterObj->getPrice(),$this->cheeseObj->getName() => $this->cheeseObj->getPrice());
         return $productsData;
+    }
+    public function getRatings(){
+        $sql= "SELECT * FROM `ratings`"; 
+        $queryRes=$this->conn->query($sql);
+        $ratings=array();
+        while ($row = mysqli_fetch_assoc($queryRes))
+        {
+            array_push($ratings,$row['rating']);
+        }
+        return $ratings;
     }
     public function pay(){
         //Recalculation of the total price in the server 
@@ -51,5 +66,35 @@ class ajaxController{
         $_SESSION['balance']=$prev_balance-$totalCost;
         return ;
     }
-    
+    public function rate(){
+        $itemName= $_POST['item'];
+       
+        $itemRate=$_POST['rating'];
+        // validate session rating
+        $rated=false;
+        foreach($_SESSION['rated'] as $r){
+            if ($r == $itemName){
+                $rated=true;
+            }
+        }
+        if(!$rated){
+            $sql= "SELECT * FROM `ratings` WHERE `productName` LIKE '".$itemName."'"; 
+            $queryRes=$this->conn->query($sql);
+            
+            while ($row = mysqli_fetch_assoc($queryRes))
+            {
+                $currRating=$row['rating'];
+                $numOfRaters=$row['numOfRatings'];
+            }
+            $newRating=$currRating+($itemRate-$currRating)/($numOfRaters+1);
+            $sql= "UPDATE `ratings` SET `rating` = '" .$newRating ."' WHERE `ratings`.`productName` = '".$itemName."'";
+            $queryRes=$this->conn->query($sql);
+            $numOfRaters+=1;
+            $sql= "UPDATE `ratings` SET `numOfRatings` = '" .$numOfRaters ."' WHERE `ratings`.`productName` = '".$itemName."'";
+            $queryRes=$this->conn->query($sql);
+            array_push($_SESSION['rated'],$itemName);
+        }
+           
+        return $this->getRatings();
+    }
 }

@@ -7,9 +7,7 @@ nav .fa-shopping-cart{
     cursor:pointer;
     transition:all .3s;
 }
-.fa-shopping-cart:hover{
-    color: rgb(247, 142, 6);
-}
+
 nav{
     min-height: 60px;
 }
@@ -17,7 +15,7 @@ nav{
     font-family:'Cairo', sans-serif;
 }
 .product_box{
-    height:400px;
+    height:450px;
     margin:10px;
     background-color: rgb(240, 238, 238);
     padding:20px;
@@ -62,11 +60,9 @@ nav{
     left:0px;
     color:red;
     padding:15px;
-    
 }
 .button{
     position:absolute;
-    
     cursor:pointer;
     height:50px;
     background-color: rgb(240, 238, 238);
@@ -76,7 +72,7 @@ nav{
 
 }
 .add_to_cart{
-    top:320px;
+    top:380px;
     width:70%;
     left:15%;
 }
@@ -90,14 +86,16 @@ nav{
     position: fixed;
     width:70%;
     left:15%;
-    top:100px;
+    top:75px;
     min-height:400px;
     max-height:700px;
     padding:30px;
     text-align: center;
-    background-color: rgb(216, 221, 216);
+    background-color: rgb(236, 240, 236);
     padding-bottom:80px;
     display:none;
+    border :8px solid #343a40;
+
 }
 .close_cart{
     position: absolute;
@@ -128,4 +126,77 @@ input{
 }
 .fa{
     cursor:pointer;
+    transition:all .3s ease;
+}
+.fa:hover{
+    color:rgb(243, 164, 73);
+}
+
+.rating {
+    float:left;
+}
+
+/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
+   follow these rules. Every browser that supports :checked also supports :not(), so
+   it doesn’t make the test unnecessarily selective */
+.rating:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+    clip:rect(0,0,0,0);
+}
+
+.rating:not(:checked) > label {
+    float:right;
+    width:1em;
+    padding:0 .1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:200%;
+    line-height:1.2;
+    color:#ddd;
+    text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating:not(:checked) > label:before {
+    content: '★ ';
+}
+
+.rating > input:checked ~ label {
+    color: #f70;
+    text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+    color: gold;
+    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+    color: #ea0;
+    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating > label:active {
+    position:relative;
+    top:2px;
+    left:2px;
+}
+
+.rating{
+    position:absolute;
+    top:300px;
+    left:23%;
+}
+.rating_tag{
+    position:absolute;
+    top:350px;
+    font-size: 15px;
+    width:30%;
+    left:35%;
 }

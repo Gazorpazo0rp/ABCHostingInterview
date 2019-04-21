@@ -31,21 +31,33 @@
     <h4> These are the available products right now. Click on add to cart, select the amount and the payment methon then submit your order!</h4>
     <div class="row">
       <?php 
+        $counter=0;
       // the key is the product name and the value is the prodyct price
         foreach($productsData as $key=>$value){
           echo'<div class="col-sm product_box">
           <h3 class="product_header">'.$key .'</h3> 
           <img class="product_img" src="Images/'. $key.'.png ">
           <h5 class="price_tag"> Price/unit: '.$value. '$</h5>
+          <fieldset class="rating">
+
+            <input type="radio" id="star5'.$key.'" name="rating'.$key.'" value="5" /><label for="star5'.$key.'" title="Rocks!">5 stars</label>
+            <input type="radio" id="star4'.$key.'" name="rating'.$key.'" value="4" /><label for="star4'.$key.'" title="Pretty good">4 stars</label>
+            <input type="radio" id="star3'.$key.'" name="rating'.$key.'" value="3" /><label for="star3'.$key.'" title="Meh">3 stars</label>
+            <input type="radio" id="star2'.$key.'" name="rating'.$key.'" value="2" /><label for="star2'.$key.'" title="Kinda bad">2 stars</label>
+            <input type="radio" id="star1'.$key.'" name="rating'.$key.'" value="1" /><label for="star1'.$key.'" title="Sucks big time">1 star</label>
+          </fieldset>
+          <h4 class="rating_tag">'.$ratings[$counter].' stars</h4>
           <button data-which_product="'.$key.'" class=" button add_to_cart"> Add to cart <i  class="fa fa-shopping-cart"></i></button>
           <script>prices["'.$key.'"]= '.$value.'</script>
           </div>';
+          $counter++;
         }
+
       ?>
     </div>
   </div>
   <div class="cart">
-    <h1 style="color:rgb(243, 164, 73);">Your Cart </h1> <i  class="fa fa-times close_cart"></i>
+    <h1 style="color:rgb(243, 164, 73);" >Your Cart </h1> <i  class="fa fa-times close_cart"></i>
     <hr>
     <div>
       <table id="products_in_cart" class="table table-striped">
@@ -71,7 +83,7 @@
     <button type="submit" class="button pay_button">Pay</button>
   </div>
   <div class="container">
-      <h3>This is a simple User interface to try the following dunctionalities:</h3>
+      <h3>This is a simple User interface to try the following functionalities:</h3>
       <hr>
       <h5>- Add the above products to the cart.</h5>
       <h5>- View the cart and select the required amounts of each product.</h5>
@@ -85,6 +97,11 @@
 
 
   </div>
-
-
+        
+        <form method="POST" action="rate">
+          <input type="text" name="item">
+          <input type="text" name="rating">
+          <button type="submit"></button>
+      </form>
+      
 </body>
