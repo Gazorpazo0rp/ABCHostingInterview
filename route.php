@@ -36,11 +36,11 @@ class route{
                 if($value=="/pay"){
                     $this->controller->pay();
                     $response=array("balance"=> $_SESSION['balance']);
-                    return $response;
+                    echo (json_encode($response)) ;
                 }
                 if($value=="/rate"){
-                    $rates= $this->controller->rate();
-                    return 1;
+                    $newRate= $this->controller->rate();
+                    echo $newRate;
                 }
                 if($value=="/test"){
                     echo "tested";

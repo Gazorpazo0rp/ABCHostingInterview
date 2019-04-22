@@ -60,7 +60,7 @@ class DB{
     $sql = "CREATE TABLE IF NOT EXISTS Ratings (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
     productName VARCHAR(30) NOT NULL,
-    rating FLOAT(5) DEFAULT 5,
+    rating FLOAT(3) DEFAULT 5,
     numOfRatings INT DEFAULT 1,
     reg_date TIMESTAMP
     )";

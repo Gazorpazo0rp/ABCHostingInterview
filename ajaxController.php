@@ -70,7 +70,19 @@ class ajaxController{
         $itemName= $_POST['item'];
        
         $itemRate=$_POST['rating'];
+        $sql= "SELECT * FROM `ratings` WHERE `productName` LIKE '".$itemName."'"; 
+        $queryRes=$this->conn->query($sql);
+        
+        while ($row = mysqli_fetch_assoc($queryRes))
+        {
+            $currRating=$row['rating'];
+            $numOfRaters=$row['numOfRatings'];
+        }
+        //if the item is already rated the new rating shouldn't change
+        $newRating=$currRating;
+
         // validate session rating
+
         $rated=false;
         foreach($_SESSION['rated'] as $r){
             if ($r == $itemName){
@@ -78,15 +90,9 @@ class ajaxController{
             }
         }
         if(!$rated){
-            $sql= "SELECT * FROM `ratings` WHERE `productName` LIKE '".$itemName."'"; 
-            $queryRes=$this->conn->query($sql);
-            
-            while ($row = mysqli_fetch_assoc($queryRes))
-            {
-                $currRating=$row['rating'];
-                $numOfRaters=$row['numOfRatings'];
-            }
+           
             $newRating=$currRating+($itemRate-$currRating)/($numOfRaters+1);
+            $newRating= round( $newRating, 1, PHP_ROUND_HALF_EVEN);
             $sql= "UPDATE `ratings` SET `rating` = '" .$newRating ."' WHERE `ratings`.`productName` = '".$itemName."'";
             $queryRes=$this->conn->query($sql);
             $numOfRaters+=1;
@@ -95,6 +101,6 @@ class ajaxController{
             array_push($_SESSION['rated'],$itemName);
         }
            
-        return $this->getRatings();
+        return $newRating;
     }
 }

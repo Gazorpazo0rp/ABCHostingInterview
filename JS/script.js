@@ -111,7 +111,8 @@ $(document).ready(function(){
             data:cart,
             success: function(response){
                 alert('Your order has been placed.');
-                console.log(response);
+                responseArray = JSON.parse(response);
+                //console.log(responseArray['balance']);
                 currentBalance-=totalPayment;
                 $(".cart").fadeOut(500);
                 $('.container').css('opacity',1);
@@ -157,6 +158,7 @@ $(document).ready(function(){
             success: function(response){
                 
                 console.log(response);
+                $('#'+ratingFor+'rating').html(response+" stars");
                 
 
             },

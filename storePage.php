@@ -46,7 +46,7 @@
             <input type="radio" id="star2'.$key.'" name="rating'.$key.'" value="2" /><label for="star2'.$key.'" title="Kinda bad">2 stars</label>
             <input type="radio" id="star1'.$key.'" name="rating'.$key.'" value="1" /><label for="star1'.$key.'" title="Sucks big time">1 star</label>
           </fieldset>
-          <h4 class="rating_tag">'.$ratings[$counter].' stars</h4>
+          <h4 class="rating_tag" id="'.$key.'rating">'.$ratings[$counter].' stars</h4>
           <button data-which_product="'.$key.'" class=" button add_to_cart"> Add to cart <i  class="fa fa-shopping-cart"></i></button>
           <script>prices["'.$key.'"]= '.$value.'</script>
           </div>';
@@ -94,7 +94,7 @@
       <h5>- The balance is session based so whenever you clear the browser cache it resets to 100$ </h5>
       <h5>- This system is designed with OOP with a herirarchy inheritance tree so the items Prices are not stored in the database. </h5>
       <h5>- This GUI is meant to be very simple but user-friendly. Sophistication won't help with such a simple system with that low number of features.</h5>
-
+      <h5>- The rating works only once per session.</h5>
 
   </div>
         
