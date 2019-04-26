@@ -36,7 +36,7 @@ class ajaxController{
         return $productsData;
     }
     public function getRatings(){
-        $sql= "SELECT * FROM `ratings`"; 
+        $sql= "SELECT * FROM `Ratings`"; 
         $queryRes=$this->conn->query($sql);
         $ratings=array();
         while ($row = mysqli_fetch_assoc($queryRes))
@@ -70,7 +70,7 @@ class ajaxController{
         $itemName= $_POST['item'];
        
         $itemRate=$_POST['rating'];
-        $sql= "SELECT * FROM `ratings` WHERE `productName` LIKE '".$itemName."'"; 
+        $sql= "SELECT * FROM `Ratings` WHERE `productName` LIKE '".$itemName."'"; 
         $queryRes=$this->conn->query($sql);
         
         while ($row = mysqli_fetch_assoc($queryRes))
@@ -93,10 +93,10 @@ class ajaxController{
            
             $newRating=$currRating+($itemRate-$currRating)/($numOfRaters+1);
             $newRating= round( $newRating, 1, PHP_ROUND_HALF_EVEN);
-            $sql= "UPDATE `ratings` SET `rating` = '" .$newRating ."' WHERE `ratings`.`productName` = '".$itemName."'";
+            $sql= "UPDATE `Ratings` SET `rating` = '" .$newRating ."' WHERE `ratings`.`productName` = '".$itemName."'";
             $queryRes=$this->conn->query($sql);
             $numOfRaters+=1;
-            $sql= "UPDATE `ratings` SET `numOfRatings` = '" .$numOfRaters ."' WHERE `ratings`.`productName` = '".$itemName."'";
+            $sql= "UPDATE `Ratings` SET `numOfRatings` = '" .$numOfRaters ."' WHERE `ratings`.`productName` = '".$itemName."'";
             $queryRes=$this->conn->query($sql);
             array_push($_SESSION['rated'],$itemName);
         }

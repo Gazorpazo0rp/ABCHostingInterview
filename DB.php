@@ -5,10 +5,10 @@ class DB{
     private $username;
     private $dbname ;
     public function __construct(){
-        $this->servername = "localhost";
-        $this->username = "root";
-        $this->password = "";
-        $this->dbname ='abchosting';
+        $this->servername = "127.0.0.1";
+        $this->username = "MagdyAbc";
+        $this->password = "Magdy12345";
+        $this->dbname ="magdy";
         
         $conn = new mysqli($this->servername, $this->username, $this->password);
         $this->conn=$conn;
@@ -21,19 +21,28 @@ class DB{
             //check if database doesn't exist
             $sql="SHOW DATABASES LIKE 'abchosting'";
             $result= $conn->query($sql);
-            //print_r($result);
             $dbExists= $result->num_rows;
-            //print_r($result);
-            //echo $dbExists;
-           
+            echo $dbExists ;
             if($dbExists!=0){
                 $conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
                 $this->conn=$conn;
+                echo"connected!";
+                
             }
             else{
+                $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+                $this->conn=$conn;
+                if (mysqli_connect_errno())
+                {
+                echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                } 
+                // No need to call thoses function on the live server
+                //I used them locally
+                /*
                 $this->CreateDB();
                 $this->createTables();
                 $this->populate();
+                */
             }    
         }
     }

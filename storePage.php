@@ -97,11 +97,4 @@
       <h5>- The rating works only once per session.</h5>
 
   </div>
-        
-        <form method="POST" action="rate">
-          <input type="text" name="item">
-          <input type="text" name="rating">
-          <button type="submit"></button>
-      </form>
-      
 </body>

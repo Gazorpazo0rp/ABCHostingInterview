@@ -20,13 +20,14 @@ class route{
     }
     public function redirect(){
         $successfulRoute=0;
+        //echo"test";
         $uri=isset($_GET['uri']) ? '/'. $_GET['uri'] : '/store';
+        //echo $uri;
         
         foreach($this->routes as $key => $value){
             if( $value==$uri ||$value.'/'==$uri) {
                 //succcessful route
                 $successfulRoute=1;
-                //echo $uri;
                 if($value == "/store"){
                     
                     $productsData= $this->controller->init();

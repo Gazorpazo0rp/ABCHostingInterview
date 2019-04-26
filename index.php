@@ -7,7 +7,7 @@ $routerObj->Add('/store');
 $routerObj->Add('/pay');
 $routerObj->Add('/rate');
 $routerObj->Add('/test');
-
+echo $_GET['uri'];
 $routerObj->redirect();
 
 

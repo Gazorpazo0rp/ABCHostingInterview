@@ -111,7 +111,7 @@ $(document).ready(function(){
             data:cart,
             success: function(response){
                 alert('Your order has been placed.');
-                responseArray = JSON.parse(response);
+                //responseArray = JSON.parse(response);
                 //console.log(responseArray['balance']);
                 currentBalance-=totalPayment;
                 $(".cart").fadeOut(500);
